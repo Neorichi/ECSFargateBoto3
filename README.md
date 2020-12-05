@@ -26,7 +26,7 @@ In this repository, it will be explained how simple Docker in **ECS** with **AWS
 - The region for default **us-east-1** will be used in this example.
 
 
-##Create new API User to get tokens
+## Create new API User to get tokens
 Click the link https://console.aws.amazon.com/iam/home?region=us-east-1#/users and follow the next steps to create your own API user.
 - Step 1
 > ![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/NewUserAPi.png)
@@ -43,7 +43,7 @@ Important: Add all **ECS** Polices and **AmazonEC2ContainerRegistryFullAccess**
 Finally: Save the **Access Key ID** and **Secret Access Key**
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/NewUserAPi4.png)
 
-##Set permissions and roles
+## Set permissions and roles
 - Step 1
 In the same page will be selected Roles
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/CreateRoles.png)
@@ -61,14 +61,14 @@ In the same page will be selected Roles
 Important: The role name must be called **ECSTaskExecutionRole**
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/CreateRoles5.png)
 
-##Install AWS CLI
+## Install AWS CLI
 Click the link https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html to install **AWS CLI version 2**.
 After that you can use the command `aws configure` to configure (follow the steps)
 
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/awscli.png)
 
 Great, ready to using the **AWS CLI** with you **API User** credentials
-##Push simple Docker with Flask API to ECR Service
+## Push simple Docker with Flask API to ECR Service
 In this repository a sample docker has been shared that creates a Flask API service on port 80 and it return a simple "OK".
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/docker.png)
 
@@ -113,12 +113,12 @@ If you want optimize the **RAM** or **CPU** you can change it inside code:
 
 *Show the pricing https://aws.amazon.com/fargate/pricing/?nc1=h_ls
 
-##Code customization
+## Code customization
 You must change the parametres values `accessKey`, `secretKey` and `image` for yours.
 Also change `subnets` and `securityGroups` with anyone from your VPC.
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/code1.png)
 
-##Running tests
+## Running tests
 - Step 1
 Run `pip3 install -r requirements.txt` to install boto3.
 
@@ -138,7 +138,7 @@ The task information shows us the Docker public IP
 Go to that IP in your browser to check if the Docker is running well
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/dockerunwell.png)
 
-#About
+## About
 ### Author
 
 **Ricardo Sánchez**
