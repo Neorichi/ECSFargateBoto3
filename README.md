@@ -3,18 +3,21 @@
 
 [TOC]
 ## Introduction
-In this repository, it will be explained how simple Docker in **AWS Amazon Elastic Container Service (ECS)** with **AWS Fargate** can be created using his **AWS API** and **Python3**.
-**Amazon Fargate** is a serverless container execution solution offered to customers who dont want to choose server types, scale clusters, or optimize them. https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html
+In this repository, it will be explained how simple Docker in **ECS** with **AWS Fargate** can be created using **Python3** and **Boto3** also a new API user using **IAM** will be created, finally it will be used **AWS CLI** to push our Docker to **ECR**, all this explained easiest way using steps points and images. I hope you find it useful.
+
+- **AWS Amazon Elastic Container Service (ECS)** is a highly scalable, high performance container management service that supports Docker containers and allows you to easily run applications on a managed cluster of Amazon EC2 instances.
+- **Amazon Fargate** is a serverless container execution solution offered to customers who dont want to choose server types, scale clusters, or optimize them. https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html
+- **Boto3** is the Amazon Web Services (AWS) Software Development Kit (SDK) for Python3.
+- **AWS Identity and Access Management (IAM)** is a web service that helps you securely control access to AWS resources. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources. ... Instead, adhere to the best practice of using the root user only to create your first IAM user.
+- **AWS Command Line Interface (AWS CLI)** is an open source tool that enables you to interact with AWS services using commands in your command-line shell. With minimal configuration, the AWS CLI enables you to start running commands that implement functionality equivalent to that provided by the browser-based AWS Management Console from the command prompt in your terminal program:
+- **Amazon Elastic Container Registry (ECR)** is a fully managed container registry that makes it easy to store, manage, share, and deploy your container images and artifacts anywhere.
 
 **More information**
-- Region used: **us-east-1**
-- **AWS API CLI V2**
-- **Python3** and **boto3**  (Boto3 is the Amazon Web Services (AWS) Software Development Kit (SDK) for Python3).
+- The region for default **us-east-1** will be used in this example.
 
-I have wanted to explain it the easiest way using steps and images. I hope you find it useful.
 
 ##Create new API User to get tokens
-Using this link https://console.aws.amazon.com/iam/home?region=us-east-1#/users will be created our API user that be used after.
+Click the link https://console.aws.amazon.com/iam/home?region=us-east-1#/users and follow the next steps to create your own API user.
 - Step 1
 > ![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/NewUserAPi.png)
 
@@ -22,15 +25,15 @@ Using this link https://console.aws.amazon.com/iam/home?region=us-east-1#/users 
 > ![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/NewUserAPi2.png)
 
 - Step 3
-Important: Add all ECS Polices and AmazonEC2ContainerRegistryFullAccess
+Important: Add all **ECS** Polices and **AmazonEC2ContainerRegistryFullAccess**
 > ![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/NewUserAPi3.png)
 > ![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/NewUserAPi3-2.png)
 
 - Step 4
-Finally: Save the Access Key ID and Secret Access Key
+Finally: Save the **Access Key ID** and **Secret Access Key**
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/NewUserAPi4.png)
 
-##Creating IAM Perms and Roles
+##Set permissions and roles
 - Step 1
 In the same page will be selected Roles
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/CreateRoles.png)
@@ -45,21 +48,21 @@ In the same page will be selected Roles
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/CreateRoles4.png)
 
 - Step 5
-Important: The name role must be called ECSTaskExecutionRole
+Important: The role name must be called **ECSTaskExecutionRole**
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/CreateRoles5.png)
 
-##Install AWS CLI version 2
-Using this link https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html you may install AWS CLI version 2.
-After that you can use the command `aws configure` and follow the steps
+##Install AWS CLI
+Click the link https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html to install **AWS CLI version 2**.
+After that you can use the command `aws configure` to configure (follow the steps)
 
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/awscli.png)
 
-Great, ready to using the AWS CLI with you API User credentials
+Great, ready to using the **AWS CLI** with you **API User** credentials
 ##Push simple Docker with Flask API to ECR Service
-In the repository it will had a folder with a simple Docker with Flask API library. The Flask up the service into port 80 and it return a simple "OK".
+In this repository a sample docker has been shared that creates a Flask API service on port 80 and it return a simple "OK".
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/docker.png)
 
-Using this link https://us-east-1.console.aws.amazon.com/ecr/repositories?region=us-east-1 going to ECR service page
+Click the link https://us-east-1.console.aws.amazon.com/ecr/repositories?region=us-east-1 to going to ECR service page
 - Step 1
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/ECR.png)
 
@@ -84,7 +87,7 @@ If everything works fine we will have our Docker into AWS ECR service
 Don't forget copy and save the Image URI, example: **XXXXXXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/image-demo:latest**
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/ECR4.png)
 
-If you want you can optimizate the **RAM** or **CPU** you can change it in the code:
+If you want optimize the **RAM** or **CPU** you can change it inside code:
 
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/code2.png)
 
@@ -101,19 +104,20 @@ If you want you can optimizate the **RAM** or **CPU** you can change it in the c
 *Show the pricing https://aws.amazon.com/fargate/pricing/?nc1=h_ls
 
 ##Code customization
-You must change the parametres values with yours `accessKey`, `secretKey` and `image` as well as `subnets` and `securityGroups` for you VPC, for this example works any that you had created.
+You must change the parametres values `accessKey`, `secretKey` and `image` for yours.
+Also change `subnets` and `securityGroups` with anyone from your VPC.
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/code1.png)
 
 ##Running tests
 - Step 1
-Run the `pip3 install -r requirements.txt` to install boto3.
+Run `pip3 install -r requirements.txt` to install boto3.
 
 - Step 2
-Run the `ecs.py` file with Python3
+Run `ecs.py` with Python3
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/code3.png)
 
 - Step 3
-Using this link https://us-east-1.console.aws.amazon.com/ecs/home?region=us-east-1#/clusters to go your cluster and the get Task information
+Click the link https://us-east-1.console.aws.amazon.com/ecs/home?region=us-east-1#/clusters to go your cluster and get task information
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/ECS.png)
 
 - Step 4
@@ -121,18 +125,18 @@ The task information shows us the Docker public IP
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/ECS2.png)
 
 - Step 5
-Go to this IP in your browser to check if the Docker is running well
+Go to that IP in your browser to check if the Docker is running well
 >![](https://raw.githubusercontent.com/Neorichi/ECSFargateBoto3/main/images/dockerunwell.png)
 
 #About
-## Author
+### Author
 
 **Ricardo Sánchez**
 
 * [github/neorichi](https://github.com/neorichi)
 * [twitter/neorichi](http://twitter.com/neorichi)
 
-## License
+### License
 
 Copyright &copy; 2020, [Ricardo Sánchez](https://github.com/neorichi).
 Released under the [MIT license](https://github.com/generate/generate-readme/blob/master/LICENSE).
