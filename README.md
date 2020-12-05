@@ -1,7 +1,17 @@
-**Index**
+# Table of contents
+
+- [Introduction](#introduction)
+- [Create new API User to get tokens](#create-new-api-user-to-get-tokens)
+- [Set permissions and roles](#set-permissions-and-roles)
+- [Install AWS CLI](#install-aws-cli)
+- [Push simple Docker with Flask API to ECR Service](#push-simple-docker-with-flask-api-to-ecr-service)
+- [Code customization](#code-customization)
+- [Running tests](#running-tests)
+- [About](#about)
+  - [Author](#author)
+  - [License](#license)
 
 
-[TOC]
 ## Introduction
 In this repository, it will be explained how simple Docker in **ECS** with **AWS Fargate** can be created using **Python3** and **Boto3** also a new API user using **IAM** will be created, finally it will be used **AWS CLI** to push our Docker to **ECR**, all this explained easiest way using steps points and images. I hope you find it useful.
 
